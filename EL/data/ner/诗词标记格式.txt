@@ -1,0 +1,17 @@
+B-POE	诗名首字
+I-POE	诗名其它字
+B-VER	诗句首字
+I-VER	诗句其它字
+B-PEO	人名首字
+I-PEO	人名其它字
+B-LOC	地点首字
+I-LOC 	地点其它字
+B-POT	状物首字
+I-POT	状物其它字
+B-DYN	朝代首字
+I-DYN	朝代其它字
+B-POC	类别首字
+I-POC	类别其它字
+B-POG 	体裁首字
+I-POG 	体裁其它字
+
