@@ -18,7 +18,7 @@ class RelationModel:
 
     def UpAndDownSentences_simple_parse(self, question):
         entity_list = ner_on_work(question)
-
+        print(entity_list)
         for label, entity in entity_list:
             if label is "B-VER":
                 gstore_model = GstoreModel()
