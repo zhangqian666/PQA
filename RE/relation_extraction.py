@@ -22,7 +22,9 @@ class RelationModel:
         for label, entity in entity_list:
             if label is "B-VER":
                 gstore_model = GstoreModel()
-                gstore_model.query_attribute(entity)
+                attribute_list = gstore_model.query_attribute(entity)
+                new_attribute_list = list(set(attribute_list))
+                print("{} , {}".format(label, new_attribute_list))
 
     def CottonWadOrder_simple_parse(self):
         pass

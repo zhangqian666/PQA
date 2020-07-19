@@ -10,7 +10,7 @@
 from EL.ner import ner_on_work
 from gstore_set.query_model import Model as GstoreQueryModel
 from utils.printUtil import *
-from bert.run_classifier import *
+from RE.relation_extraction import RelationModel
 
 poetry_type = [
     "UpAndDownSentences_simple",  # 上下句
@@ -69,11 +69,15 @@ if __name__ == "__main__":
     question = ""
     # 第一步 问题分类 bert_classification
 
+
     # 第二步 根据不同的问题用不同的处理方式
     # -》根据问题分类进行模型选择
     # -》实体识别 bert_ner
     # -》属性计算 consin
     # -》答案查询 rank
+
+    relation_model = RelationModel()
+    relation_model.UpAndDownSentences_simple_parse(question)
 
     # 第三步 构建答案 模版内容
 
