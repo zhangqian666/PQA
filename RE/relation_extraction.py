@@ -20,6 +20,7 @@ class RelationModel:
         entity_list = ner_on_work(question)
         print(entity_list)
         for label, entity in entity_list:
+            print("{} {}".format(label, entity))
             if label is "B-VER":
                 gstore_model = GstoreModel()
                 attribute_list = gstore_model.query_attribute(entity)
