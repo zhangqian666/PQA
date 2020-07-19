@@ -52,12 +52,13 @@ class Model():
         """
         query1 = "SELECT ?x WHERE {<%s> ?x ?y .}" % entity
         query2 = "SELECT ?x WHERE {?y ?x <%s> .}" % entity
+        print(query1)
         list1 = self.parse_json_x(self.make_query(query1))
         list2 = self.parse_json_x(self.make_query(query2))
+        print(list1)
         list1.append(list2)
         attribute_set = set(list1)
         return list(attribute_set)
-
 
     def query_answer(self, entity, attribute):
         current_query = "SELECT ?x WHERE {<%s> <%s> ?x .}" % (entity, attribute)
