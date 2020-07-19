@@ -77,8 +77,7 @@ if __name__ == "__main__":
     # -》答案查询 rank
 
     relation_model = RelationModel()
-    relation_model.UpAndDownSentences_simple_parse(question)
-    print(relation_model)
+    print(relation_model.UpAndDownSentences_simple_parse(question))
     # 第三步 构建答案 模版内容
 
     # el(question)
