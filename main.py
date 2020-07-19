@@ -66,7 +66,7 @@ def make_answer():
 
 
 if __name__ == "__main__":
-    question = ""
+    question = "千古名句“射人先射马，擒贼先擒王。”出自于哪位诗人之手？"
     # 第一步 问题分类 bert_classification
 
 
@@ -81,4 +81,4 @@ if __name__ == "__main__":
 
     # 第三步 构建答案 模版内容
 
-    el(question)
+    # el(question)

@@ -49,7 +49,6 @@ def ner_on_work(question):
         question_labels = list(rst[0])
 
         printi('命名实体识别进程 - compete 用时 ： {} s'.format(time.perf_counter() - start_t))
-
         all_entity = []
         entity_list = []
         entity_list_number = 0
@@ -58,13 +57,10 @@ def ner_on_work(question):
 
             if labels in entity_labels:
                 current_b_labels = labels
-                print(current_b_labels)
             if labels != 'O':
                 entity_list.append(str_input_list[entity_list_number])
-                print(str_input_list[entity_list_number])
             else:
                 if len(entity_list) > 0:
-                    print(entity_list)
                     entity_str = "".join(entity_list)
                     all_entity.append((current_b_labels, entity_str))
                     entity_list = []
@@ -72,7 +68,6 @@ def ner_on_work(question):
             entity_list_number += 1
 
         if len(entity_list) > 0:
-            print(entity_list)
             entity_str = "".join(entity_list)
             all_entity.append((current_b_labels, entity_str))
 
