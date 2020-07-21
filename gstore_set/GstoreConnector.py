@@ -125,7 +125,7 @@ class GstoreConnector:
             res = self.Post(strUrl, strPost)
         return res
 
-    def query(self, db_name, format, sparql, request_type='GET'):
+    def query(self, db_name, format, sparql, request_type='POST'):
         if request_type == 'GET':
             strUrl = "/?operation=query&username=" + self.username + "&password=" + self.password + "&db_name=" + db_name + "&format=" + format + "&sparql=" + sparql
             res = self.Get(strUrl)
