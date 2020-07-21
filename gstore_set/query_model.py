@@ -36,7 +36,7 @@ class Model():
         :param entity:
         :return:
         """
-        query = "SELECT ?x WHERE {<%s> ?x ?y .}" % entity
+        query = 'SELECT ?x WHERE {"%s"@zh ?x ?y .}' % entity
 
         if len(self.parse_json_x(self.make_query(query))) > 0:
             return True
@@ -50,8 +50,8 @@ class Model():
         :return:
 
         """
-        query1 = "SELECT ?x WHERE {<%s> ?x ?y .}" % entity
-        query2 = "SELECT ?x WHERE {?y ?x <%s> .}" % entity
+        query1 = 'SELECT ?x WHERE {"%s"@zh ?x ?y .}' % entity
+        query2 = 'SELECT ?x WHERE {?y ?x "%s"@zh.}' % entity
         print(query1)
         list1 = self.parse_json_x(self.make_query(query1))
         list2 = self.parse_json_x(self.make_query(query2))

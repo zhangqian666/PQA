@@ -52,10 +52,12 @@ class GstoreConnector:
         return ret
 
     def Get(self, strUrl):
+        print(strUrl)
         r = requests.get(self.Url + self.UrlEncode(strUrl))
         return r.text
 
     def Post(self, strUrl, strPost):
+        print(strPost)
         r = requests.post(self.Url + self.UrlEncode(strUrl), strPost)
         return r.text
 

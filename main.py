@@ -80,4 +80,5 @@ if __name__ == "__main__":
     print(relation_model.UpAndDownSentences_simple_parse(question))
     # 第三步 构建答案 模版内容
 
+
     # el(question)
