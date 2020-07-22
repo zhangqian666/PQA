@@ -16,7 +16,7 @@
 #             f2.write(line)
 
 with open("/Users/zhangqian/PycharmProjects/PQA/EL/data/poetry_origin2.txt", "r", encoding="utf-8") as f:
-    with open("/Users/zhangqian/PycharmProjects/PQA/EL/data/poetry_data2.txt", "w", encoding="utf-8") as f2:
+    with open("/Users/zhangqian/PycharmProjects/PQA/EL/data/poetry_data3.txt", "w", encoding="utf-8") as f2:
         i = 0
         j = 0
         for line in f.readlines():
@@ -26,5 +26,6 @@ with open("/Users/zhangqian/PycharmProjects/PQA/EL/data/poetry_origin2.txt", "r"
                 f2.write("{} {}".format(j, line))
                 j += 1
             else:
-                f2.write(line)
+                pass
+                # f2.write(line)
             i += 1

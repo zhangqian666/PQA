@@ -45,20 +45,39 @@ class Model():
 
     def query_attribute(self, entity):
         """
-        获取实体的所有属性
-        :param entity:
-        :return:
+                获取实体的所有属性
+                :param entity:
+                :return:
 
-        """
-        query1 = 'SELECT ?x WHERE {"%s"@zh ?x ?y .}' % entity
-        query2 = 'SELECT ?x WHERE {?y ?x "%s"@zh.}' % entity
-        print(query1)
+                """
+        query1 = """
+                   select ?x ?b
+                   where {
+                      "%s"@zh ?p ?s. 
+                      ?s ?p ?o .
+                      ?all_p a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+                           <http://www.w3.org/2000/01/rdf-schema#label> ?x;
+
+                       FILTER(?p = ?all_p)
+                   }
+                """ % entity
+
+        query2 = """
+                   select ?x ?b
+                   where {
+                      ?s ?p "%s"@zh. 
+                      ?s ?p ?o .
+                      ?all_p a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
+                           <http://www.w3.org/2000/01/rdf-schema#label> ?x;
+
+                       FILTER(?p = ?all_p)
+                   }
+                """ % entity
         list1 = self.parse_json_x(self.make_query(query1))
         list2 = self.parse_json_x(self.make_query(query2))
         print(list1)
         list1.append(list2)
-        attribute_set = set(list1)
-        return list(attribute_set)
+        return list1
 
     def query_answer(self, entity, attribute):
         current_query = "SELECT ?x WHERE {<%s> <%s> ?x .}" % (entity, attribute)

@@ -26,6 +26,7 @@ class RelationModel:
                 attribute_list = gstore_model.query_attribute(entity)
                 new_attribute_list = list(set(attribute_list))
                 print("{} , {}".format(label, new_attribute_list))
+                
 
     def CottonWadOrder_simple_parse(self):
         pass
