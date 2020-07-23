@@ -24,10 +24,15 @@ class RelationModel:
             if label.startswith("B-VER"):
                 gstore_model = GstoreModel()
                 true_entity_false_attr = gstore_model.query_entity(entity)
-                # 需要进行消歧 目前不做消歧只拿第一个
-                print(entity + "---" + true_entity_false_attr[0][1])
+                print("根据{}查询到的实体的所有类型 ： {}".format(entity, true_entity_false_attr))
+
                 true_entity_true_attr = gstore_model.query_attribute(entity, true_entity_false_attr[0][1])
-                print("{} , {}".format(label, true_entity_true_attr))
+
+                print("查询到实体{} 的所有属性 ：  {}".format(label, true_entity_true_attr))
+
+                # 获取到主实体的所有的属性 ，进行属性消歧
+                answer = gstore_model.query_answer(true_entity_false_attr[0][2], true_entity_true_attr[0][1])
+                print("查询结果 ： {}".format(answer))
 
     def CottonWadOrder_simple_parse(self):
         pass

@@ -17,6 +17,26 @@ class Model():
         gstoreConnector = GstoreConnector("gstore9002.ngrok.apex.ac.cn", 6060, "root", "123456")
         return gstoreConnector.query("poetry", "json", query_content)
 
+    def parse_json_entity(self, json_str):
+        all_part = json.loads(json_str)  # 读取所有文件内容
+        end_ls = []
+        try:
+            results = all_part['results']  # 获取results标签下的内容
+            results_bindings = results['bindings']  # 获取results标签下的bingdings内容
+            # 定义一个list，将数据全部放到list中
+            for res in results_bindings:
+                res1 = res['x']
+                res1 = res1['value']
+                res2 = res["u"]
+                res2 = res2["value"]
+                res3 = res3["s"]
+                res3 = res3["value"]
+                if (res1, res2, res3) not in end_ls:
+                    end_ls.append((res1, res2, res3))
+        except:
+            print("解析错误/或者数据为空")
+        return end_ls
+
     def parse_json_x(self, json_str):
         print(json_str)
         all_part = json.loads(json_str)  # 读取所有文件内容
@@ -50,7 +70,7 @@ class Model():
                   prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
                   prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
 
-                  select distinct ?x ?u
+                  select distinct ?x ?u ?s
                   where {
                      "%s"@zh ?u ?s. 
                      ?all_p a rdf:Property;
@@ -67,7 +87,7 @@ class Model():
                   prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
                   prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
                   prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
-                  select distinct ?x ?u
+                  select distinct ?x ?u ?s
                   where {
                       ?s ?u "%s"@zh. 
                       ?all_p a rdf:Property;
@@ -75,10 +95,10 @@ class Model():
                       FILTER(?u = ?all_p)
                   }
                """ % entity
-        list1 = self.parse_json_x(self.make_query(query1))
-        list2 = self.parse_json_x(self.make_query(query2))
+        list1 = self.parse_json_entity(self.make_query(query1))
+        list2 = self.parse_json_entity(self.make_query(query2))
         list1.extend(list2)
-        print(list1)
+        # print(list1)
         return list1
 
     def query_attribute(self, entity, attr):
@@ -126,9 +146,20 @@ class Model():
         list1 = self.parse_json_x(self.make_query(query1))
         list2 = self.parse_json_x(self.make_query(query2))
         list1.extend(list2)
-        print(list1)
+        # print(list1)
         return list1
 
     def query_answer(self, entity, attribute):
-        current_query = "SELECT ?x WHERE {<%s> <%s> ?x .}" % (entity, attribute)
-        return current_query
+        current_query = """
+          prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+          prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+          prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
+          prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
+          prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
+          SELECT ?x WHERE {<%s> <%s> ?x . } 
+        
+        """ % (entity, attribute)
+        list1 = self.parse_json_x(self.make_query(current_query))
+
+        return list1
