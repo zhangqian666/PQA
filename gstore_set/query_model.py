@@ -77,7 +77,7 @@ class Model():
                """ % entity
         list1 = self.parse_json_x(self.make_query(query1))
         list2 = self.parse_json_x(self.make_query(query2))
-        list1.append(list2)
+        list1.extend(list2)
         print(list1)
         return list1
 
@@ -125,7 +125,7 @@ class Model():
                 """ % (attr, entity)
         list1 = self.parse_json_x(self.make_query(query1))
         list2 = self.parse_json_x(self.make_query(query2))
-        list1.append(list2)
+        list1.extend(list2)
         print(list1)
         return list1
 
