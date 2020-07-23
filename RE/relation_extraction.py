@@ -25,7 +25,8 @@ class RelationModel:
                 gstore_model = GstoreModel()
                 true_entity_false_attr = gstore_model.query_entity(entity)
                 # 需要进行消歧 目前不做消歧只拿第一个
-                true_entity_true_attr = gstore_model.query_attribute(entity, true_entity_false_attr[0])
+                print(entity + "---" + true_entity_false_attr[0][1])
+                true_entity_true_attr = gstore_model.query_attribute(entity, true_entity_false_attr[0][1])
                 print("{} , {}".format(label, true_entity_true_attr))
 
     def CottonWadOrder_simple_parse(self):
