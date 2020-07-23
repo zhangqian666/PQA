@@ -14,8 +14,8 @@ import json
 class Model():
 
     def make_query(self, query_content):
-        gstoreConnector = GstoreConnector("gstore.ngrok.apex.ac.cn", 6060, "root", "123456")
-        return gstoreConnector.query("pg", "json", query_content)
+        gstoreConnector = GstoreConnector("gstore9002.ngrok.apex.ac.cn", 6060, "root", "123456")
+        return gstoreConnector.query("poetry", "json", query_content)
 
     def parse_json_x(self, json_str):
         print(json_str)
