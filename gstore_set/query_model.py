@@ -18,6 +18,7 @@ class Model():
         return gstoreConnector.query("poetry", "json", query_content)
 
     def parse_json_entity(self, json_str):
+        # print(json_str)
         all_part = json.loads(json_str)  # 读取所有文件内容
         end_ls = []
         try:
@@ -38,7 +39,8 @@ class Model():
         return end_ls
 
     def parse_json_attr(self, json_str):
-        print(json_str)
+        # print(json_str)
+
         all_part = json.loads(json_str)  # 读取所有文件内容
         end_ls = []
         try:
@@ -57,7 +59,7 @@ class Model():
         return end_ls
 
     def parse_json_answer(self, json_str):
-        print(json_str)
+        # print(json_str)
         all_part = json.loads(json_str)  # 读取所有文件内容
         end_ls = []
         try:
