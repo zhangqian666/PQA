@@ -37,7 +37,7 @@ class Model():
             print("解析错误/或者数据为空")
         return end_ls
 
-    def parse_json_x(self, json_str):
+    def parse_json_attr(self, json_str):
         print(json_str)
         all_part = json.loads(json_str)  # 读取所有文件内容
         end_ls = []
@@ -52,6 +52,24 @@ class Model():
                 res2 = res2["value"]
                 if (res1, res2) not in end_ls:
                     end_ls.append([res1, res2])
+        except:
+            print("解析错误/或者数据为空")
+        return end_ls
+
+    def parse_json_answer(self, json_str):
+        print(json_str)
+        all_part = json.loads(json_str)  # 读取所有文件内容
+        end_ls = []
+        try:
+            results = all_part['results']  # 获取results标签下的内容
+            results_bindings = results['bindings']  # 获取results标签下的bingdings内容
+            # 定义一个list，将数据全部放到list中
+            for res in results_bindings:
+                res1 = res['x']
+                res1 = res1['value']
+
+                if res1 not in end_ls:
+                    end_ls.append(res1)
         except:
             print("解析错误/或者数据为空")
         return end_ls
@@ -143,8 +161,8 @@ class Model():
                        FILTER(?u = ?all_p)
                    }
                 """ % (attr, entity)
-        list1 = self.parse_json_x(self.make_query(query1))
-        list2 = self.parse_json_x(self.make_query(query2))
+        list1 = self.parse_json_attr(self.make_query(query1))
+        list2 = self.parse_json_attr(self.make_query(query2))
         list1.extend(list2)
         # print(list1)
         return list1
@@ -157,9 +175,9 @@ class Model():
           prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
           prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
           prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
-          SELECT ?x WHERE {<%s> <%s> ?x . } 
+          SELECT ?x WHERE {<%s> <%s> ?s . 
+                            ?s ?p ?x . } 
         
         """ % (entity, attribute)
-        list1 = self.parse_json_x(self.make_query(current_query))
-
+        list1 = self.parse_json_answer(self.make_query(current_query))
         return list1

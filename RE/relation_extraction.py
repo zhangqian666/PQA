@@ -23,16 +23,37 @@ class RelationModel:
             print("{} {}".format(label, entity))
             if label.startswith("B-VER"):
                 gstore_model = GstoreModel()
-                true_entity_false_attr = gstore_model.query_entity(entity)
-                print("根据{}查询到的实体的所有类型 ： {}".format(entity, true_entity_false_attr))
-                print(disambiguation(question, entity, true_entity_false_attr))
-                true_entity_true_attr = gstore_model.query_attribute(entity, true_entity_false_attr[0][1])
 
-                print("查询到实体{} 的所有属性 ：  {}".format(label, true_entity_true_attr))
+                true_entity_tag_list = gstore_model.query_entity(entity)
+                print("根据{}查询到的实体的所有类型 ： {}".format(entity, true_entity_tag_list))
 
-                # 获取到主实体的所有的属性 ，进行属性消歧
-                answer = gstore_model.query_answer(true_entity_false_attr[0][2], true_entity_true_attr[0][1])
-                print("查询结果 ： {}".format(answer))
+                true_entity_tag = disambiguation(question, entity, true_entity_tag_list)
+
+                true_entity_uri = ""
+
+                true_entity_tag_uri = ""
+
+                true_entity_attr_list = []
+
+                for true_entity_tag_item in true_entity_tag_list:
+                    if true_entity_tag_item[0] == true_entity_tag:
+                        true_entity_tag_uri = true_entity_tag_item[1]
+                        true_entity_uri = true_entity_tag_item[2]
+                        true_entity_attr_list = gstore_model.query_attribute(entity, true_entity_tag_uri)
+                        print("查询到实体{} 的所有属性 ：  {}".format(label, true_entity_attr_list))
+
+                true_entity_attr = disambiguation(question, entity, true_entity_attr_list)
+
+                true_entity_attr_uri = ""
+
+                for true_entity_attr_item in true_entity_attr_list:
+                    if true_entity_attr_item[0] == true_entity_attr:
+                        # 获取到主实体的所有的属性 ，进行属性消歧
+                        true_entity_attr_uri = true_entity_attr_item[1]
+
+                        answer = gstore_model.query_answer(true_entity_uri,
+                                                           true_entity_attr_uri)
+                        print("查询结果 ： {}".format(answer))
 
     def CottonWadOrder_simple_parse(self):
         pass

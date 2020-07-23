@@ -37,7 +37,7 @@ def el(question):
     ner_attr_dict = {}
 
     for entity_item in ner_content:
-        if len(gstoreQueryModel.parse_json_x(gstoreQueryModel.query_entity(entity_item))) > 0:
+        if len(gstoreQueryModel.parse_json_attr(gstoreQueryModel.query_entity(entity_item))) > 0:
             printi("{} 该实体为真实体".format(entity_item))
 
         attr_list = gstoreQueryModel.parse_attribute(gstoreQueryModel.query_attribute(entity_item))
