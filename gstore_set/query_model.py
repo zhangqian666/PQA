@@ -28,8 +28,10 @@ class Model():
             for res in results_bindings:
                 res1 = res['x']
                 res1 = res1['value']
-                if res1 not in end_ls:
-                    end_ls.append(res1)
+                res2 = res["u"]
+                res2 = res2["value"]
+                if (res1, res2) not in end_ls:
+                    end_ls.append((res1, res2))
         except:
             print("解析错误/或者数据为空")
         return end_ls
@@ -48,14 +50,13 @@ class Model():
                   prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
                   prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
 
-                  select distinct ?x ?b
+                  select distinct ?x ?u
                   where {
-                     "%s"@zh ?p ?s. 
-                     ?s ?p ?o .
+                     "%s"@zh ?u ?s. 
                      ?all_p a rdf:Property;
                           rdfs:label ?x;
 
-                      FILTER(?p = ?all_p)
+                      FILTER(?u = ?all_p)
                   }
                """ % entity
 
@@ -66,12 +67,12 @@ class Model():
                   prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
                   prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
                   prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
-                  select distinct ?x ?b
+                  select distinct ?x ?u
                   where {
-                     ?s ?p "%s"@zh. 
+                      ?s ?u "%s"@zh. 
                       ?all_p a rdf:Property;
                           rdfs:label ?x;
-                      FILTER(?p = ?all_p)
+                      FILTER(?u = ?all_p)
                   }
                """ % entity
         list1 = self.parse_json_x(self.make_query(query1))
@@ -94,14 +95,14 @@ class Model():
                   prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
                   prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
                   prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
-                   select distinct ?x ?b
+                   select distinct ?x ?u
                    where {
-                      "%s"@zh ?p ?s. 
-                      ?s ?p ?o .
+                      "%s"@zh %s ?s. 
+                      ?s ?u ?o .
                       ?all_p a rdf:Property;
-                          rdfs:label %s;
+                          rdfs:label ?x;
 
-                       FILTER(?p = ?all_p)
+                       FILTER(?u = ?all_p)
                    }
                 """ % (entity, attr)
 
@@ -112,16 +113,16 @@ class Model():
                   prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
                   prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
                   prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
-                   select distinct ?x ?b
+                   select distinct ?x ?u
                    where {
-                      ?s ?p "%s"@zh. 
-                      ?s ?p ?o .
+                      ?s %s "%s"@zh. 
+                      ?s ?u ?o .
                       ?all_p a rdf:Property;
-                             rdfs:label %s;
+                          rdfs:label ?x;
 
-                       FILTER(?p = ?all_p)
+                       FILTER(?u = ?all_p)
                    }
-                """ % (entity, attr)
+                """ % (attr, entity)
         list1 = self.parse_json_x(self.make_query(query1))
         list2 = self.parse_json_x(self.make_query(query2))
         print(list1)
