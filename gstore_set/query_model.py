@@ -97,7 +97,7 @@ class Model():
                   prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
                    select distinct ?x ?u
                    where {
-                      "%s"@zh %s ?s. 
+                      "%s"@zh <%s> ?s. 
                       ?s ?u ?o .
                       ?all_p a rdf:Property;
                           rdfs:label ?x;
@@ -115,7 +115,7 @@ class Model():
                   prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
                    select distinct ?x ?u
                    where {
-                      ?s %s "%s"@zh. 
+                      ?s <%s> "%s"@zh. 
                       ?s ?u ?o .
                       ?all_p a rdf:Property;
                           rdfs:label ?x;
