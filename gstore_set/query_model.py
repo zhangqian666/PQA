@@ -29,7 +29,7 @@ class Model():
                 res1 = res1['value']
                 res2 = res["u"]
                 res2 = res2["value"]
-                res3 = res3["s"]
+                res3 = res["s"]
                 res3 = res3["value"]
                 if (res1, res2, res3) not in end_ls:
                     end_ls.append((res1, res2, res3))
