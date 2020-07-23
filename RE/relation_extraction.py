@@ -21,7 +21,7 @@ class RelationModel:
         print(entity_list)
         for label, entity in entity_list:
             print("{} {}".format(label, entity))
-            if label is "B-VER":
+            if label.startswith("B-VER"):
                 gstore_model = GstoreModel()
                 true_entity_false_attr = gstore_model.query_entity(entity)
                 # 需要进行消歧 目前不做消歧只拿第一个
