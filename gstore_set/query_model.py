@@ -32,7 +32,7 @@ class Model():
                 res3 = res["s"]
                 res3 = res3["value"]
                 if (res1, res2, res3) not in end_ls:
-                    end_ls.append((res1, res2, res3))
+                    end_ls.append([res1, res2, res3])
         except:
             print("解析错误/或者数据为空")
         return end_ls
@@ -51,7 +51,7 @@ class Model():
                 res2 = res["u"]
                 res2 = res2["value"]
                 if (res1, res2) not in end_ls:
-                    end_ls.append((res1, res2))
+                    end_ls.append([res1, res2])
         except:
             print("解析错误/或者数据为空")
         return end_ls
