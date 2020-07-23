@@ -88,6 +88,12 @@ class Model():
 
                 """
         query1 = """
+                  prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                  prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                  prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+                  prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
+                  prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
+                  prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
                    select distinct ?x ?b
                    where {
                       "%s"@zh ?p ?s. 
@@ -100,6 +106,12 @@ class Model():
                 """ % (entity, attr)
 
         query2 = """
+                  prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                  prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                  prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+                  prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
+                  prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
+                  prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
                    select distinct ?x ?b
                    where {
                       ?s ?p "%s"@zh. 
