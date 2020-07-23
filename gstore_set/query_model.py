@@ -18,32 +18,69 @@ class Model():
         return gstoreConnector.query("pg", "json", query_content)
 
     def parse_json_x(self, json_str):
+        print(json_str)
         all_part = json.loads(json_str)  # 读取所有文件内容
-        results = all_part['results']  # 获取results标签下的内容
-        results_bindings = results['bindings']  # 获取results标签下的bingdings内容
-        # 定义一个list，将数据全部放到list中
         end_ls = []
-        for res in results_bindings:
-            res1 = res['x']
-            res1 = res1['value']
-            if res1 not in end_ls:
-                end_ls.append(res1)
+        try:
+            results = all_part['results']  # 获取results标签下的内容
+            results_bindings = results['bindings']  # 获取results标签下的bingdings内容
+            # 定义一个list，将数据全部放到list中
+            for res in results_bindings:
+                res1 = res['x']
+                res1 = res1['value']
+                if res1 not in end_ls:
+                    end_ls.append(res1)
+        except:
+            print("解析错误/或者数据为空")
         return end_ls
 
     def query_entity(self, entity):
         """
-        获取实体的所有属性
+        查询实体 用于实体消歧
         :param entity:
         :return:
         """
-        query = 'SELECT ?x WHERE {"%s"@zh ?x ?y .}' % entity
+        query1 = """
+                  prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                  prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                  prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+                  prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
+                  prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
+                  prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
 
-        if len(self.parse_json_x(self.make_query(query))) > 0:
-            return True
-        else:
-            return False
+                  select distinct ?x ?b
+                  where {
+                     "%s"@zh ?p ?s. 
+                     ?s ?p ?o .
+                     ?all_p a rdf:Property;
+                          rdfs:label ?x;
 
-    def query_attribute(self, entity):
+                      FILTER(?p = ?all_p)
+                  }
+               """ % entity
+
+        query2 = """
+                  prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                  prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                  prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+                  prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
+                  prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
+                  prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
+                  select distinct ?x ?b
+                  where {
+                     ?s ?p "%s"@zh. 
+                      ?all_p a rdf:Property;
+                          rdfs:label ?x;
+                      FILTER(?p = ?all_p)
+                  }
+               """ % entity
+        list1 = self.parse_json_x(self.make_query(query1))
+        list2 = self.parse_json_x(self.make_query(query2))
+        print(list1)
+        list1.append(list2)
+        return list1
+
+    def query_attribute(self, entity, attr):
         """
                 获取实体的所有属性
                 :param entity:
@@ -51,28 +88,28 @@ class Model():
 
                 """
         query1 = """
-                   select ?x ?b
+                   select distinct ?x ?b
                    where {
                       "%s"@zh ?p ?s. 
                       ?s ?p ?o .
-                      ?all_p a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
-                           <http://www.w3.org/2000/01/rdf-schema#label> ?x;
+                      ?all_p a rdf:Property;
+                          rdfs:label %s;
 
                        FILTER(?p = ?all_p)
                    }
-                """ % entity
+                """ % (entity, attr)
 
         query2 = """
-                   select ?x ?b
+                   select distinct ?x ?b
                    where {
                       ?s ?p "%s"@zh. 
                       ?s ?p ?o .
-                      ?all_p a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>;
-                           <http://www.w3.org/2000/01/rdf-schema#label> ?x;
+                      ?all_p a rdf:Property;
+                             rdfs:label %s;
 
                        FILTER(?p = ?all_p)
                    }
-                """ % entity
+                """ % (entity, attr)
         list1 = self.parse_json_x(self.make_query(query1))
         list2 = self.parse_json_x(self.make_query(query2))
         print(list1)

@@ -23,10 +23,10 @@ class RelationModel:
             print("{} {}".format(label, entity))
             if label is "B-VER":
                 gstore_model = GstoreModel()
-                attribute_list = gstore_model.query_attribute(entity)
-                new_attribute_list = list(set(attribute_list))
-                print("{} , {}".format(label, new_attribute_list))
-                
+                true_entity_false_attr = gstore_model.query_entity(entity)
+                # 需要进行消歧 目前不做消歧只拿第一个
+                true_entity_true_attr = gstore_model.query_attribute(entity, true_entity_false_attr[0])
+                print("{} , {}".format(label, true_entity_true_attr))
 
     def CottonWadOrder_simple_parse(self):
         pass
