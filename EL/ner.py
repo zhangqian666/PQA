@@ -14,7 +14,7 @@ from utils.printUtil import printi
 import os
 import jieba
 from pyltp import Segmentor, Postagger, NamedEntityRecognizer
-from bert_serving.client import BertClient
+from bert_serving.client import BertClient as BertClient2
 import numpy as np
 
 all_labels = ["B-POE",  # 诗名首字
@@ -110,7 +110,7 @@ def disambiguation(question, entity, data_list):
     keywords_List = keyword_chou(postags, 1, wei_true_index, seg_list)
     print('keywords_List为：', keywords_List)
 
-    bc = BertClient(port=5557, port_out=5558)
+    bc = BertClient2(port=5557, port_out=5558)
 
     candidate_attributes = data_list
     c = 0
