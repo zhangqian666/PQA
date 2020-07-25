@@ -145,7 +145,7 @@ def keyword_chou(form_pos_list, form_entity_flag, form_wei_index, form_seg_list)
     :param form_wei_index:上面函数return出来的临时保存索引号，此函数中对此索引号自动过滤掉
     :return:返回所有除去实体以外的关键词
     """
-    pos_list = ["n", "nh", "ni", "nl", "ns", "nt", "nz", "ws", "v", "i"]
+    pos_list = ["n", "nh", "ni", "nl", "ns", "nt", "nz", "ws", "v", "i", "r"]
 
     pos_list_count = 0  # 下方遍历计数使用
 
