@@ -178,7 +178,7 @@ class Model():
           prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
           prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
           SELECT ?x WHERE {<%s> <%s> ?s . 
-                            ?s ?p ?x . } 
+                            ?s poetryp:P9 ?x . } 
         
         """ % (entity, attribute)
         list1 = self.parse_json_answer(self.make_query(current_query))
