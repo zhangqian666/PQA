@@ -183,3 +183,18 @@ class Model():
         """ % (entity, attribute)
         list1 = self.parse_json_answer(self.make_query(current_query))
         return list1
+
+    def query_answer_other_simple(self, entity, attribute):
+        current_query = """
+          prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+          prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+          prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
+          prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
+          prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
+          SELECT ?x WHERE {<%s> <%s> ?s . 
+                            ?s ?p ?x . } 
+
+        """ % (entity, attribute)
+        list1 = self.parse_json_answer(self.make_query(current_query))
+        return list1

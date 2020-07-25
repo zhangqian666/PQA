@@ -67,7 +67,7 @@ class RelationModel:
     def Disorder_simple_parse(self):
         pass
 
-    def Other_simple_parse(self,question):
+    def Other_simple_parse(self, question):
         entity_list = ner_on_work(question)
         print(entity_list)
         for label, entity in entity_list:
@@ -102,8 +102,8 @@ class RelationModel:
                         # 获取到主实体的所有的属性 ，进行属性消歧
                         true_entity_attr_uri = true_entity_attr_item[1]
 
-                        answer = gstore_model.query_answer(true_entity_uri,
-                                                           true_entity_attr_uri)
+                        answer = gstore_model.query_answer_other_simple(true_entity_uri,
+                                                                        true_entity_attr_uri)
                         print("查询结果 ： {}".format(answer))
 
     def TheMeaningOfWords_multi_parse(self):
