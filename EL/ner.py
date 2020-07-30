@@ -97,16 +97,15 @@ def ltp_ner(question):
     postags_str = postagger.postag(seg_list)  # 对列表进行词性标注,并输出为str
     postags = list(postags_str)  # 转化为列表
 
-
     recognizer = NamedEntityRecognizer()  # 初始化实例
     recognizer.load(ner_model_path)  # 加载模型
 
-
     netags = recognizer.recognize(seg_list, postags)  # 命名实体识别
-    print(netags)  # 打印列表
+    print('\t'.join(netags))  # 打印列表
 
     recognizer.release()  # 释放模型
     postagger.release()  # 释放模型
+
 
 def cos_sim(vector_a, vector_b):
     vector_a = np.mat(vector_a)
