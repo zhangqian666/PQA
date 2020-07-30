@@ -83,6 +83,31 @@ def ner_on_work(question):
         return all_entity
 
 
+def ltp_ner(question):
+    # ltp模型目录的路径
+    LTP_DATA_DIR = '/home/admin/EA-CKGQA/nltp/ltp_data_v3.4.0'
+    pos_model_path = os.path.join(LTP_DATA_DIR, 'pos.model')  # 词性标注模型路径，模型名称为`pos.model`
+    ner_model_path = os.path.join(LTP_DATA_DIR, 'ner.model')  # 命名实体识别模型路径，模型名称为`pos.model`
+
+    seg_list = list(jieba.cut(question))  # 分词处理，并且转化为列表形式
+    print('seg_list为：', seg_list)  # 分词后的列表
+
+    postagger = Postagger()  # 初始化实例
+    postagger.load(pos_model_path)  # 加载模型
+    postags_str = postagger.postag(seg_list)  # 对列表进行词性标注,并输出为str
+    postags = list(postags_str)  # 转化为列表
+
+
+    recognizer = NamedEntityRecognizer()  # 初始化实例
+    recognizer.load(ner_model_path)  # 加载模型
+
+
+    netags = recognizer.recognize(seg_list, postags)  # 命名实体识别
+    print(netags)  # 打印列表
+
+    recognizer.release()  # 释放模型
+    postagger.release()  # 释放模型
+
 def cos_sim(vector_a, vector_b):
     vector_a = np.mat(vector_a)
     vector_b = np.mat(vector_b)
