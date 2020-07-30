@@ -46,7 +46,7 @@ entity_labels = ["B-POE",  # 诗名首字
 
 
 def ner_on_work(question):
-    with BertClient(port=5559, port_out=5560, show_server_config=False, check_version=False, check_length=False,
+    with BertClient(port=5555, port_out=5556, show_server_config=False, check_version=False, check_length=False,
                     mode='NER') as bc:
         start_t = time.perf_counter()
         str_input_list = list(question)
