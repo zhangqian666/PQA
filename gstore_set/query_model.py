@@ -101,9 +101,6 @@ class Model():
                """ % entity
 
         list = self.parse_json_entity(self.make_query(query))
-
-        print(list)
-
         return list
 
     def query_attribute(self, entity_uri):
@@ -151,7 +148,6 @@ class Model():
         list1 = self.parse_json_attr(self.make_query(query1))
         list2 = self.parse_json_attr(self.make_query(query2))
         list1.extend(list2)
-        print(list1)
         return list1
 
     def query_answer(self, entity, attribute):
