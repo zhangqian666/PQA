@@ -106,7 +106,7 @@ class Model():
 
         return list
 
-    def query_attribute(self, entity, c):
+    def query_attribute(self, entity_uri):
         """
                 获取实体的所有属性
                 :param entity:
@@ -122,17 +122,14 @@ class Model():
                   prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
                   select distinct ?x ?u
                   where {
-                     ?s rdfs:label "%s"@zh .
-                     ?s rdf:type <%s>
-                     
-                     ?r ?u ?s .
+                     ?r ?u <%s>  .
                      
                      ?all_p a rdf:Property;
                           rdfs:label ?x;
 
                       FILTER(?u = ?all_p)
                   }
-                """ % (entity, c)
+                """ % entity_uri
 
         query2 = """
                   prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -142,18 +139,15 @@ class Model():
                   prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
                   prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
                   select distinct ?x ?u
-                  where {
-                     ?s rdfs:label "%s"@zh .
-                     ?s rdf:type <%s>
-                     
-                     ?s ?u ?r .
+                  where {   
+                     <%s> ?u ?r .
                      
                      ?all_p a rdf:Property;
                           rdfs:label ?x;
 
                       FILTER(?u = ?all_p)
                   }
-                """ % (entity, c)
+                """ % entity_uri
         list1 = self.parse_json_attr(self.make_query(query1))
         list2 = self.parse_json_attr(self.make_query(query2))
         list1.extend(list2)
