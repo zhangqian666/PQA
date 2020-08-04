@@ -9,7 +9,7 @@
 """
 
 from flask import Flask, render_template, request
-from RE.relation_extraction import RelationModel
+
 
 app = Flask(__name__)
 
@@ -22,9 +22,9 @@ def index():
 @app.route('/question', methods=["POST", "GET"])
 def get_question():
     question = request.values.get("message")
-    relationModel = RelationModel()
-    result_answer = relationModel.Other_simple_parse(question)
-    result_data = {"data": "查询成功： {}".format(result_answer)}
+    # relationModel = RelationModel()
+    # result_answer = relationModel.Other_simple_parse(question)
+    result_data = {"data": "查询成功： {}".format(question)}
     return result_data
 
 

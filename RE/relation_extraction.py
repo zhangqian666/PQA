@@ -55,11 +55,11 @@ class RelationModel:
                                                            true_entity_attr_uri)
                         print("查询结果 ： {}".format(answer))
 
-    def CottonWadOrder_simple_parse(self,question):
+    def CottonWadOrder_simple_parse(self, question):
 
         entity_list = ltp_ner(question)
-        print(entity_list)
 
+        print(entity_list)
 
     def FillInTheWords_simple_parse(self):
         pass
@@ -110,6 +110,5 @@ class RelationModel:
                         print("查询结果 ： {}".format(answer))
 
     def TheMeaningOfWords_multi_parse(self):
-
 
         pass

@@ -28,7 +28,7 @@ class Model():
             for res in results_bindings:
                 res1 = res['x']
                 res1 = res1['value']
-                res2 = res["u"]
+                res2 = res["r"]
                 res2 = res2["value"]
                 res3 = res["s"]
                 res3 = res3["value"]
@@ -82,46 +82,31 @@ class Model():
         :param entity:
         :return:
         """
-        query1 = """
+
+        query = """
                   prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                   prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                   prefix xsd: <http://www.w3.org/2001/XMLSchema#>
                   prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
                   prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
                   prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
-
-                  select distinct ?x ?u ?s
+                  select distinct ?x ?r ?s
                   where {
-                     "%s"@zh ?u ?s. 
-                     ?all_p a rdf:Property;
+                      ?s rdfs:label "%s"@zh .
+                      ?s ?u ?r .
+                      ?all_c a rdfs:Class;
                           rdfs:label ?x;
-
-                      FILTER(?u = ?all_p)
+                      FILTER(?r = ?all_c)
                   }
                """ % entity
 
-        query2 = """
-                  prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                  prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-                  prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-                  prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
-                  prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
-                  prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
-                  select distinct ?x ?u ?s
-                  where {
-                      ?s ?u "%s"@zh. 
-                      ?all_p a rdf:Property;
-                          rdfs:label ?x;
-                      FILTER(?u = ?all_p)
-                  }
-               """ % entity
-        list1 = self.parse_json_entity(self.make_query(query1))
-        list2 = self.parse_json_entity(self.make_query(query2))
-        list1.extend(list2)
-        # print(list1)
-        return list1
+        list = self.parse_json_entity(self.make_query(query))
 
-    def query_attribute(self, entity, attr):
+        print(list)
+
+        return list
+
+    def query_attribute(self, entity, c):
         """
                 获取实体的所有属性
                 :param entity:
@@ -135,16 +120,19 @@ class Model():
                   prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
                   prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
                   prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
-                   select distinct ?x ?u
-                   where {
-                      "%s"@zh <%s> ?s. 
-                      ?s ?u ?o .
-                      ?all_p a rdf:Property;
+                  select distinct ?x ?u
+                  where {
+                     ?s rdfs:label "%s"@zh .
+                     ?s rdf:type <%s>
+                     
+                     ?r ?u ?s .
+                     
+                     ?all_p a rdf:Property;
                           rdfs:label ?x;
 
-                       FILTER(?u = ?all_p)
-                   }
-                """ % (entity, attr)
+                      FILTER(?u = ?all_p)
+                  }
+                """ % (entity, c)
 
         query2 = """
                   prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -153,20 +141,23 @@ class Model():
                   prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
                   prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
                   prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
-                   select distinct ?x ?u
-                   where {
-                      ?s <%s> "%s"@zh. 
-                      ?s ?u ?o .
-                      ?all_p a rdf:Property;
+                  select distinct ?x ?u
+                  where {
+                     ?s rdfs:label "%s"@zh .
+                     ?s rdf:type <%s>
+                     
+                     ?s ?u ?r .
+                     
+                     ?all_p a rdf:Property;
                           rdfs:label ?x;
 
-                       FILTER(?u = ?all_p)
-                   }
-                """ % (attr, entity)
+                      FILTER(?u = ?all_p)
+                  }
+                """ % (entity, c)
         list1 = self.parse_json_attr(self.make_query(query1))
         list2 = self.parse_json_attr(self.make_query(query2))
         list1.extend(list2)
-        # print(list1)
+        print(list1)
         return list1
 
     def query_answer(self, entity, attribute):
@@ -178,7 +169,7 @@ class Model():
           prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
           prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
           SELECT ?x WHERE {<%s> <%s> ?s . 
-                            ?s poetryp:P9 ?x . } 
+                            ?s  rdfs:label ?x . } 
         
         """ % (entity, attribute)
         list1 = self.parse_json_answer(self.make_query(current_query))
@@ -192,8 +183,8 @@ class Model():
           prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
           prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
           prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
-          SELECT ?x WHERE {<%s> <%s> ?s . 
-                            ?s ?p ?x . } 
+          SELECT ?x WHERE {<%s> <%s> ?s.
+                            ?s  rdfs:label ?x .} 
 
         """ % (entity, attribute)
         list1 = self.parse_json_answer(self.make_query(current_query))
