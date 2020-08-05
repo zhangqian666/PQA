@@ -9,7 +9,7 @@
 """
 
 import tensorflow as tf
-import EL.tokenization
+import EL.tokenization as tokenization
 
 
 class InputExample(object):
