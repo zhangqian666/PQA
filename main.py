@@ -12,6 +12,8 @@ from gstore_set.query_model import Model as GstoreQueryModel
 from utils.printUtil import *
 from RE.relation_extraction import RelationModel
 
+from EL.bert_classfication import *
+
 poetry_type = [
     "UpAndDownSentences_simple",  # 上下句
     "CottonWadOrder_simple"  # 飞花令 描写某东西的诗词
@@ -79,6 +81,7 @@ if __name__ == "__main__":
     relation_model = RelationModel()
     print(relation_model.UpAndDownSentences_simple_parse(question))
     # 第三步 构建答案 模版内容
+
 
 
     # el(question)
