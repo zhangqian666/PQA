@@ -19,6 +19,8 @@ class RelationModel:
     def UpAndDownSentences_simple_parse(self, question):
         entity_list = ner_on_work(question)
         print(entity_list)
+        answer_list = []
+
         for label, entity in entity_list:
 
             if label.startswith("B-VER"):
@@ -49,13 +51,12 @@ class RelationModel:
                         answer = gstore_model.query_answer(true_entity_uri,
                                                            true_entity_attr_uri)
                         print("查询结果 ： {}".format(answer))
+                        answer_list.append(answer)
+        return answer_list
 
     def CottonWadOrder_simple_parse(self, question):
-
         entity_list = ltp_ner(question)
-
         print(entity_list)
-
     def FillInTheWords_simple_parse(self):
         pass
 
@@ -68,6 +69,7 @@ class RelationModel:
     def Other_simple_parse(self, question):
         entity_list = ner_on_work(question)
         print(entity_list)
+        answer_list = []
         for label, entity in entity_list:
             gstore_model = GstoreModel()
 
@@ -96,6 +98,9 @@ class RelationModel:
                     answer = gstore_model.query_answer_other_simple(true_entity_uri,
                                                                     true_entity_attr_uri)
                     print("查询结果 ： {}".format(answer))
+                    answer_list.append(answer)
+
+            return answer_list
 
     def TheMeaningOfWords_multi_parse(self):
 

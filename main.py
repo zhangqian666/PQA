@@ -22,6 +22,8 @@ poetry_type = [
 
 
 def handle_question(question):
+
+
     classification_result = classif(question)
 
     # 第二步 根据不同的问题用不同的处理方式
@@ -34,15 +36,18 @@ def handle_question(question):
 
     relation_model = RelationModel()
 
-    entity = "问题类型为：{}；未查到正确结果。".format(classification_result)
-    if classification_result is "Other_simple":
+    entity = "问题类型为：{}；未查到正确结果。".format(classification_result[0])
+    if classification_result[0] == "Other_simple":
         entity = relation_model.Other_simple_parse(question)
-    elif classification_result is "UpAndDownSentences_simple":
+
+    if classification_result[0] == "UpAndDownSentences_simple":
         entity = relation_model.UpAndDownSentences_simple_parse(question)
 
     # 第三步 构建答案 模版内容
 
     print(entity)
+
+    return entity
     # el(question)
 
 
