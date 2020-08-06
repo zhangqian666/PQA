@@ -7,6 +7,6 @@ bert-base-serving-start \
     -model_pb_dir $TRAINED_CLASSIFIER/$EXP_NAME \
     -mode CLASS \
     -max_seq_len 128 \
-    -port 6666 \
-    -port_out 6667 \
+    -port 5559 \
+    -port_out 5560 \
     -device_map 1 \ &
