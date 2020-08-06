@@ -1,4 +1,4 @@
-export BERT_BASE_DIR=/home/admin/EA-CKGQA/NER/chinese_L-12_H-768_A-12
+export BERT_BASE_DIR=/home/zhangqian/opt/jupyterhub/home/admin/EA-CKGQA/NER/chinese_L-12_H-768_A-12
 export TRAINED_CLASSIFIER=./output
 export EXP_NAME=mobile
 bert-base-serving-start \
