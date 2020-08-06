@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-bert-base-serving-start \
+sudo bert-base-serving-start \
     -model_dir '/home/zhangqian/opt/jupyterhub/home/admin/EA-CKGQA/NER/POETRY_New_Model/' \
     -bert_model_dir '/home/zhangqian/opt/jupyterhub/home/admin/EA-CKGQA/NER/chinese_L-12_H-768_A-12'  \
     -mode NER   \
