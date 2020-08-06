@@ -9,4 +9,4 @@ bert-base-serving-start \
     -max_seq_len 128 \
     -port 5559 \
     -port_out 5560 \
-    -device_map 1 \ &
+    -device_map 1  &
