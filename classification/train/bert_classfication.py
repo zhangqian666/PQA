@@ -3,13 +3,16 @@
 """
 @author: zhangqian
 
-@contact: 
+@contact:
+
+
+该文件 为线下模式，不是在线服务器
 
 @Created on: 2020-08-05 22:11
 """
 
 import tensorflow as tf
-import EL.tokenization as tokenization
+import classification.train.tokenization as tokenization
 
 
 class InputExample(object):

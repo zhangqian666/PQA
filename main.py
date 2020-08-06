@@ -7,12 +7,8 @@
 
 @Created on: 2020-07-12 13:32
 """
-from EL.ner import ner_on_work
-from gstore_set.query_model import Model as GstoreQueryModel
-from utils.printUtil import *
 from RE.relation_extraction import RelationModel
-
-from EL.bert_classfication import *
+from classification.qa_classification import classif
 
 poetry_type = [
     "UpAndDownSentences_simple",  # 上下句
@@ -25,52 +21,8 @@ poetry_type = [
 ]
 
 
-def el(question):
-    """
-    启动 BERT-BiLSTM-CRF-NER 服务 用于 命名实体识别
-    也就是启动 /EL/ber_server/bert_server_ner.sh
-
-    :return: { 实体名称 : 候选属性列表}
-    """
-    ner_content = ner_on_work(question)
-
-    gstoreQueryModel = GstoreQueryModel()
-
-    ner_attr_dict = {}
-
-    for entity_item in ner_content:
-        if len(gstoreQueryModel.parse_json_attr(gstoreQueryModel.query_entity(entity_item))) > 0:
-            printi("{} 该实体为真实体".format(entity_item))
-
-        attr_list = gstoreQueryModel.parse_attribute(gstoreQueryModel.query_attribute(entity_item))
-
-        ner_attr_dict[entity_item] = attr_list
-
-    return ner_attr_dict
-
-
-def choice_attribute(ner_attr_dict):
-    for entity, attribute_list in ner_attr_dict:
-        printi(entity)
-
-
-def parse_classification(question):
-    """
-    使用bert 分类器 对问题进行分类 在进行下面的计算
-    :param question:
-    :return:
-    """
-    pass
-
-
-def make_answer():
-    pass
-
-
-if __name__ == "__main__":
-    question = "千古名句“射人先射马，擒贼先擒王。”出自于哪位诗人之手？"
-    # 第一步 问题分类 bert_classification
-
+def handle_question(question):
+    classification_result = classif(question)
 
     # 第二步 根据不同的问题用不同的处理方式
     # -》根据问题分类进行模型选择
@@ -78,10 +30,23 @@ if __name__ == "__main__":
     # -》属性计算 consin
     # -》答案查询 rank
 
+    print(classification_result)
+
     relation_model = RelationModel()
-    print(relation_model.UpAndDownSentences_simple_parse(question))
+
+    entity = "问题类型为：{}；未查到正确结果。".format(classification_result)
+    if classification_result is "Other_simple":
+        entity = relation_model.Other_simple_parse(question)
+    elif classification_result is "UpAndDownSentences_simple":
+        entity = relation_model.UpAndDownSentences_simple_parse(question)
+
     # 第三步 构建答案 模版内容
 
-
-
+    print(entity)
     # el(question)
+
+
+if __name__ == "__main__":
+    question = "千古名句“射人先射马，擒贼先擒王。”出自于哪位诗人之手？"
+    # 第一步 问题分类 bert_classification
+    handle_question(question)

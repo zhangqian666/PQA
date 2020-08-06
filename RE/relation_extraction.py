@@ -7,7 +7,7 @@
 
 @Created on: 2020-07-19 11:25
 """
-from EL.ner import *
+from EL.qa_ner import *
 from gstore_set.query_model import Model as GstoreModel
 
 
