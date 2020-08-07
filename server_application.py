@@ -26,7 +26,7 @@ def get_question():
     if (question is None) or (question is ""):
         return "问题不能为空"
     result_answer = handle_question(question)
-    result_data = {"data": "查询成功： {}".format(result_answer)}
+    result_data = {"data": "{}".format(result_answer)}
     return result_data
 
 

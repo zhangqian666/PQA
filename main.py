@@ -22,8 +22,6 @@ poetry_type = [
 
 
 def handle_question(question):
-
-
     classification_result = classif(question)
 
     # 第二步 根据不同的问题用不同的处理方式
@@ -45,9 +43,9 @@ def handle_question(question):
 
     # 第三步 构建答案 模版内容
 
-    print(entity)
+    print("问题分类:{},查询结果:{}".format(classification_result, entity))
 
-    return entity
+    return "问题分类:{},查询结果:{}".format(classification_result, entity)
     # el(question)
 
 
