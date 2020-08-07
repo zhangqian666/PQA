@@ -133,7 +133,7 @@
                 message: message
             },
             success: function (data) {
-                $("#endmessage").append(data["data"])
+                $("#endmessage").html(data["data"])
             },
             error: function (data, type, err) {
                 alert(err)
