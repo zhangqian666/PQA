@@ -194,8 +194,12 @@ class Model():
           prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
           prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
           prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
-          SELECT ?x WHERE {<%s> <%s> ?s . 
-                            ?s  rdfs:label ?x . } 
+          SELECT ?s ?x WHERE {<%s> <%s> ?s . 
+                            OPTIONAL
+                            {
+                               ?s  rdfs:label ?x .
+                            }
+                            } 
         
         """ % (entity, attribute)
         list1 = self.parse_json_answer(self.make_query(current_query))
