@@ -110,6 +110,10 @@
         </ol>
     </fieldset>
     <button style="margin-top: 30px" type="submit" onclick="login()">查询</button>
+
+    <div id="endmessage" style="width: auto  ">
+
+    </div>
 </div>
 
 </body>
@@ -129,7 +133,7 @@
                 message: message
             },
             success: function (data) {
-                alert(data["data"])
+                $("#endmessage").append(data["data"])
             },
             error: function (data, type, err) {
                 alert(err)
