@@ -22,14 +22,13 @@ def index():
 @app.route('/question', methods=["POST", "GET"])
 def get_question():
     question = request.values.get("message")
-
+    print("question:{}".format(question))
     if (question is None) or (question is ""):
         return "问题不能为空"
-
     result_answer = handle_question(question)
     result_data = {"data": "查询成功： {}".format(result_answer)}
     return result_data
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8777)
+    app.run(debug=True, port=8000)
