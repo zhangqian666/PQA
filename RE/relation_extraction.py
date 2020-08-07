@@ -38,7 +38,7 @@ class RelationModel:
                 for true_entity_tag_item in true_entity_tag_list:
                     if true_entity_tag_item[0] == true_entity_tag:
                         true_entity_uri = true_entity_tag_item[2]
-                        true_entity_attr_list = gstore_model.query_attribute(true_entity_uri)
+                        true_entity_attr_list = gstore_model.query_up_down_attribute(true_entity_uri)
                         print("查询到实体{} 的所有属性 ：  {}".format(entity, true_entity_attr_list))
 
                 true_entity_attr = disambiguation(question, entity, true_entity_attr_list)
