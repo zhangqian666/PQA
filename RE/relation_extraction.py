@@ -28,7 +28,8 @@ class RelationModel:
 
                 true_entity_tag_list = gstore_model.query_entity(entity)
                 print("根据{}查询到的实体的所有类型 ： {}".format(entity, true_entity_tag_list))
-
+                if len(true_entity_tag_list) == 0:
+                    continue
                 true_entity_tag = disambiguation(question, entity, true_entity_tag_list)
 
                 true_entity_uri = ""
@@ -40,6 +41,7 @@ class RelationModel:
                         true_entity_uri = true_entity_tag_item[2]
                         true_entity_attr_list = gstore_model.query_up_down_attribute(true_entity_uri)
                         print("查询到实体{} 的所有属性 ：  {}".format(entity, true_entity_attr_list))
+
 
                 true_entity_attr = disambiguation(question, entity, true_entity_attr_list)
 
@@ -57,6 +59,7 @@ class RelationModel:
     def CottonWadOrder_simple_parse(self, question):
         entity_list = ltp_ner(question)
         print(entity_list)
+
     def FillInTheWords_simple_parse(self):
         pass
 
