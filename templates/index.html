@@ -94,6 +94,11 @@
             outline: none;
             padding: 5px;
         }
+        button#btn {
+            color: #384313;
+            font-size: 16px;
+            text-shadow: 0px 1px 1px #c0d576;
+        }
     </style>
 
 </head>
@@ -103,12 +108,10 @@
         <legend style="text-align: center">诗词问答系统</legend>
         <ol style="width: auto ; height: auto">
             <li>
-                目前只解决两类问题
-            </li>
-            <li>
-                1,Other_simple : "李白"的朝代
-            </li>
-            <li>
+                目前只解决两类问题<br>
+
+                1,Other_simple : "李白"的朝代<br>
+
                 2,UpAndDownSentences_simple : 杜牧的《江南春》中的“南朝四百八十寺”的下句是?
             </li>
         </ol>
@@ -120,7 +123,7 @@
             </li>
         </ol>
     </fieldset>
-    <button style="margin-top: 30px;width: 100px;height: 60px" type="submit" onclick="login()">查询</button>
+    <button id="btn" style="margin-top: 30px;margin-bottom: 30px" type="submit" onclick="login()">查询</button>
 
     <ol style="width: auto ; height: auto">
         <li id="endmessage">
