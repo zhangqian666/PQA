@@ -122,6 +122,8 @@ def disambiguation(question, entity, data_list):
     LTP_DATA_DIR = '/home/admin/EA-CKGQA/nltp/ltp_data_v3.4.0'
     pos_model_path = os.path.join(LTP_DATA_DIR, 'pos.model')  # 词性标注模型路径，模型名称为`pos.model`
 
+    question = question.replace(entity, "")
+
     seg_list = list(jieba.cut(question))  # 分词处理，并且转化为列表形式
     wei_true_index = -1
     if seg_list.count(data_list) > 0:
