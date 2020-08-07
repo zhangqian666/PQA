@@ -23,7 +23,7 @@ class RelationModel:
 
         for label, entity in entity_list:
 
-            if label is "B-VER":
+            if label.startswith("B-VER"):
                 gstore_model = GstoreModel()
 
                 true_entity_tag_list = gstore_model.query_entity(entity)
@@ -73,11 +73,14 @@ class RelationModel:
         print(entity_list)
         answer_list = []
         for label, entity in entity_list:
-            gstore_model = GstoreModel()
 
+            if (label is None) or (label is ""):
+                continue
+            gstore_model = GstoreModel()
             true_entity_tag_list = gstore_model.query_entity(entity)
             print("根据{}查询到的实体的所有类型 ： {}".format(entity, true_entity_tag_list))
-
+            if len(true_entity_tag_list) == 0:
+                continue
             true_entity_tag = disambiguation(question, entity, true_entity_tag_list)
 
             true_entity_uri = ""
