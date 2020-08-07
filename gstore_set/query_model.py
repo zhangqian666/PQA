@@ -111,6 +111,34 @@ class Model():
         list = self.parse_json_entity(self.make_query(query))
         return list
 
+    def query_up_down_attribute(self, entity_uri):
+        """
+                获取实体的所有属性
+                :param entity:
+                :return:
+
+                """
+        query = """
+                  prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                  prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                  prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+                  prefix poetryc: <http://ictdba.apex.ac.cn/poetry/class/>
+                  prefix poetryp: <http://ictdba.apex.ac.cn/poetry/property/>
+                  prefix poetryr: <http://ictdba.apex.ac.cn/poetry/resource/>
+                  select distinct ?x ?u
+                  where {   
+                     <%s> ?u ?r .
+
+                     ?all_p a rdf:Property;
+                          rdfs:label ?x;
+
+                      FILTER(?u = ?all_p)
+                  }
+                """ % entity_uri
+
+        list2 = self.parse_json_attr(self.make_query(query))
+        return list2
+
     def query_attribute(self, entity_uri):
         """
                 获取实体的所有属性
