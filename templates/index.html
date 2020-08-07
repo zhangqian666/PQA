@@ -103,6 +103,14 @@
         <legend style="text-align: center">诗词问答系统</legend>
         <ol style="width: auto ; height: auto">
             <li>
+                目前只解决两类问题
+                1,Other_simple "李白"的朝代
+                2,UpAndDownSentences_simple 杜牧的《江南春》中的“南朝四百八十寺”的下句是。
+
+            </li>
+        </ol>
+        <ol style="width: auto ; height: auto">
+            <li>
                 <label for="message">问题内容：</label>
                 <textarea type="text" name="message" id="message" style="width: 100% ; height: 100px" placeholder="查询内容"
                           required></textarea>
@@ -111,9 +119,10 @@
     </fieldset>
     <button style="margin-top: 30px" type="submit" onclick="login()">查询</button>
 
-    <div id="endmessage" style="width: auto  ">
-
-    </div>
+    <ol style="width: auto ; height: auto">
+        <li id="endmessage">
+        </li>
+    </ol>
 </div>
 
 </body>
