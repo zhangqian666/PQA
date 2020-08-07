@@ -120,6 +120,7 @@
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>
     function login() {
+        $("#endmessage").html("正在查询中····，请等待")
         var message = document.getElementById("message").value;
         $.ajax({
             //几个参数需要注意一下
